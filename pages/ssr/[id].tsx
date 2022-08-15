@@ -5,42 +5,21 @@ import Navbar from '../../components/navbar'
 import styles from '../../styles/Home.module.css'
 
 
-const { SECRET } = process.env
-
-export async function getStaticPaths() {
-  let paths = []
-  for(let i = 0; i < 100; i++) {
-    paths.push({
-      params: { id: i.toString() }
-    })
-  }
-  return {
-    paths: paths,
-    fallback: false,
-  }
-}
-
-export async function getStaticProps(context: any) {
-
-  console.log(SECRET)
-  
+export async function getServerSideProps(context: any) {
   const isPrime = function(n) {
     for(var i = 2; i < n; i++)
       if(n % i === 0) return false;
     return n > 1;
   }(context.params.id)
-
   return {
     props: {
       id: context.params.id,
-      isPrime: isPrime,
-      at: new Date().toLocaleString()
-    },
-    revalidate: 60
+      isPrime: isPrime
+    }
   }
 }
 
-const SsgPage = (props: {isPrime: boolean, id: number, at: string, secret: string}) => {
+const SsrPage = (props: {isPrime: boolean, id: number}) => {
   return (
     <div className={styles.container}>
       <Head>
@@ -54,10 +33,10 @@ const SsgPage = (props: {isPrime: boolean, id: number, at: string, secret: strin
           SSG Page {props.id}
         </h1>
         <Navbar />
-        <p>At {props.at}, {props.id} is {props.isPrime ? 'prime': 'non-prime'}</p>
+        <p>{props.id} is {props.isPrime ? 'prime': 'non-prime'}</p>
       </main>
     </div>
   )
 }
 
-export default SsgPage
+export default SsrPage

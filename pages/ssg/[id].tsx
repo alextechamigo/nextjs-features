@@ -1,12 +1,13 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
+import Navbar from '../../components/navbar'
 import styles from '../../styles/Home.module.css'
 
 export async function getStaticPaths() {
 
   let paths = []
-  for(let i = 0; i < 1000; i++) {
+  for(let i = 0; i < 100; i++) {
     paths.push({
       params: { id: i.toString() }
     })
@@ -44,6 +45,7 @@ const SsgPage = (props: {isPrime: boolean, id: number}) => {
         <h1 className={styles.title}>
           SSG Page {props.id}
         </h1>
+        <Navbar />
         <p>{props.id} is {props.isPrime ? 'prime': 'non-prime'}</p>
       </main>
     </div>
