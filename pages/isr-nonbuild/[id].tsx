@@ -49,7 +49,7 @@ const SsgPage = (props: {isPrime: boolean, id: number, at: string, secret: strin
 
       <main className={styles.main}>
         <h1 className={styles.title}>
-          ISR Page {props.id} - changes!!!
+          ISR Page {props.id} - changes...
         </h1>
         <Navbar />
         <p>At {props.at}, {props.id} is {props.isPrime ? 'prime': 'non-prime'}</p>
